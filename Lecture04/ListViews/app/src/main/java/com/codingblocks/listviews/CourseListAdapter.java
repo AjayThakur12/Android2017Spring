@@ -67,8 +67,6 @@ public class CourseListAdapter extends BaseAdapter {
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         Course thisCourse = getItem(position);
 
-
-
         if (convertView == null) {
             Log.d(TAG, "getView: convertView is null at " + position);
             int layoutType;
