@@ -26,6 +26,24 @@ public class CourseListAdapter extends BaseAdapter {
     }
 
     @Override
+    public int getItemViewType(int position) {
+        if (getItem(position).getCourseName().equals("Pandora")) {
+            return 1;
+        }
+
+        if (getItem(position).getCourseName().equals("Elixir")) {
+            return 2;
+        }
+
+        return 0;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 3;
+    }
+
+    @Override
     public int getCount() {
         //Log.d(TAG, "getCount: ");
         return courses.size();
@@ -47,10 +65,32 @@ public class CourseListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         Log.d(TAG, "getView: " + position + convertView);
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        Course thisCourse = getItem(position);
+
+
 
         if (convertView == null) {
-            convertView = li.inflate(R.layout.list_item_course_details, null);
+            Log.d(TAG, "getView: convertView is null at " + position);
+            int layoutType;
+
+            switch(getItemViewType(position)) {
+                case 2:
+                    layoutType = R.layout.list_item_course_details_center;
+                    break;
+                case 1:
+                    layoutType = R.layout.list_item_course_details_right;
+                    break;
+
+                case 0:
+                default:
+                    layoutType = R.layout.list_item_course_details;
+                    break;
+            }
+
+
+            convertView = li.inflate(layoutType, null);
         } else {
+            Log.d(TAG, "getView: convertView is not null" + position);
 
         }
 
@@ -58,7 +98,6 @@ public class CourseListAdapter extends BaseAdapter {
         TextView tvCourseName = (TextView) convertView.findViewById(R.id.tvCourseName);
         TextView tvTeacherName = (TextView) convertView.findViewById(R.id.tvTeacherName);
 
-        Course thisCourse = getItem(position);
         tvCourseName.setText(thisCourse.getCourseName());
         tvTeacherName.setText(thisCourse.getTeacherName());
 
