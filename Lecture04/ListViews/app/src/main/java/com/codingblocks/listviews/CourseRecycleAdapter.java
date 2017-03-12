@@ -24,12 +24,36 @@ public class CourseRecycleAdapter extends
         this.context = context;
     }
 
+
+
     @Override
     public CourseItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View itemView = li.inflate(R.layout.list_item_course_details, parent, false);
+        int layoutType;
+        switch (viewType) {
+            case 0: layoutType = R.layout.list_item_course_details; break;
+            case 1: layoutType = R.layout.list_item_course_details_center; break;
+            case 2:
+            default: layoutType = R.layout.list_item_course_details_right; break;
+        }
+        View itemView = li.inflate(layoutType, parent, false);
 
         return new CourseItemHolder(itemView);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+
+        Course thisCourse = courses.get(position);
+
+        if (thisCourse.getCourseName().equals("Pandora")) {
+            return 0;
+        }
+        if (thisCourse.getCourseName().equals("Elixir")) {
+            return 1;
+        }
+
+        return 2;
     }
 
     @Override
