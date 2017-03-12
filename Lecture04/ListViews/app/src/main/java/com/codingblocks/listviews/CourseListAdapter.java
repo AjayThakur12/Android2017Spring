@@ -25,6 +25,11 @@ public class CourseListAdapter extends BaseAdapter {
         this.context = context;
     }
 
+    class CourseListHolder {
+        TextView tvCourseName;
+        TextView tvTeacherName;
+    }
+
     @Override
     public int getItemViewType(int position) {
         if (getItem(position).getCourseName().equals("Pandora")) {
@@ -66,6 +71,7 @@ public class CourseListAdapter extends BaseAdapter {
         Log.d(TAG, "getView: " + position + convertView);
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         Course thisCourse = getItem(position);
+        CourseListHolder itemHolder;
 
         if (convertView == null) {
             Log.d(TAG, "getView: convertView is null at " + position);
@@ -87,17 +93,24 @@ public class CourseListAdapter extends BaseAdapter {
 
 
             convertView = li.inflate(layoutType, null);
+            itemHolder = new CourseListHolder();
+            itemHolder.tvCourseName = (TextView) convertView.findViewById(R.id.tvCourseName);
+            itemHolder.tvTeacherName = (TextView) convertView.findViewById(R.id.tvTeacherName);
+            convertView.setTag(itemHolder);
         } else {
             Log.d(TAG, "getView: convertView is not null" + position);
-
+            itemHolder = (CourseListHolder) convertView.getTag();
         }
 
+//        ((TextView) convertView.findViewById(R.id.tvCourseName))
+//                .setText(thisCourse.getCourseName());
+//        ((TextView) convertView.findViewById(R.id.tvTeacherName))
+//                .setText(thisCourse.getCourseName());
 
-        TextView tvCourseName = (TextView) convertView.findViewById(R.id.tvCourseName);
-        TextView tvTeacherName = (TextView) convertView.findViewById(R.id.tvTeacherName);
 
-        tvCourseName.setText(thisCourse.getCourseName());
-        tvTeacherName.setText(thisCourse.getTeacherName());
+
+        itemHolder.tvCourseName.setText(thisCourse.getCourseName());
+        itemHolder.tvTeacherName.setText(thisCourse.getTeacherName());
 
         return convertView;
     }
