@@ -1,0 +1,26 @@
+Write a class Perman 
+
+Perman {
+	OnPermissionResultListener {
+		onGranted(String permission)
+		onDenied(String permission)
+	}
+}
+
+so that we can use it like mentioned below 
+
+
+Perman.askForPermission(
+	new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, 
+	new OnPermissionResultListener {
+		@Override
+		public void onGranted(String permission) {
+			//if you're allowed
+		}
+
+		@Override
+		public void onDenied(String permission) {
+			// if you're denied
+		}
+	}
+	);
