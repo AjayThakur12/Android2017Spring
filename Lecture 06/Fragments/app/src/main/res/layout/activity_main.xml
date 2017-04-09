@@ -6,34 +6,63 @@
     android:layout_height="match_parent"
     tools:context="com.condingblocks.fragments.MainActivity"
     android:orientation="vertical"
-    >
-    <FrameLayout
-        android:layout_weight="1"
+    android:weightSum="3">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        >
-        <include
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        layout="@layout/fragment_blue"
-        />
-    </FrameLayout>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Red"
+            android:id="@+id/redBtn"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Blue"
+            android:id="@+id/blueBtn"/>
+
+    </LinearLayout>
+
+
+  <!--<fragment-->
+      <!--android:layout_width="match_parent"-->
+      <!--android:layout_height="0dp"-->
+      <!--android:layout_weight="1"-->
+      <!--android:name="com.condingblocks.fragments.FramentBlue"-->
+      <!--tools:layout="@layout/fragmentblue"-->
+      <!--/>-->
+
+
+ <!--<fragment-->
+     <!--android:layout_width="match_parent"-->
+     <!--android:layout_height="0dp"-->
+     <!--android:layout_weight="1"-->
+     <!--android:name="com.condingblocks.fragments.FragmentRed"-->
+     <!--tools:layout="@layout/fragmentred"/>-->
+
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:gravity="center"-->
+        <!--android:text="0"-->
+        <!--android:textSize="40dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:id="@+id/tvCounter"-->
+        <!--/>-->
+
 
     <FrameLayout
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        >
-    <include
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        layout="@layout/fragment_red"
-        />
-    </FrameLayout>
-
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></fragment>
+        android:id="@+id/fragmentFrame"/>
+    <!--<FrameLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:id="@+id/fragmentFrame2"/>-->
 
 
 </LinearLayout>
