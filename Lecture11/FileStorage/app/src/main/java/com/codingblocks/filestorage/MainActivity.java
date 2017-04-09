@@ -1,5 +1,7 @@
 package com.codingblocks.filestorage;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -67,9 +69,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+     @TargetApi(Build.VERSION_CODES.KITKAT)
      void writeToFile(String fileName, String data) {
 
-         File f = new File(getFilesDir(), fileName);
+         File f = new File(getExternalFilesDirs(null)[1], fileName);
          if (!f.exists()) {
              try {
                  f.createNewFile();
@@ -91,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
          } catch (IOException e) {
              e.printStackTrace();
          }
+
 
 
      }
