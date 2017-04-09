@@ -1,0 +1,28 @@
+{
+  "name": "Coding Blocks",
+  "hq": "47, Nishant Kunj",
+  "website": "http://cb.lk",
+  "centres": [
+    {
+      "name": "Pitampura",
+      "address": "47, Nishant Kunj",
+      "courses" : [
+        "Launchpad", "Crux", "Pandora", "Elixir", "Algo++", "Perceptron"
+      ]
+    },
+    {
+      "name": "Dwarka",
+      "address": "Plot 13, Sector 11",
+      "courses" : [
+        "Launchpad", "Crux", "Pandora", "Elixir"
+      ]
+    },
+    {
+      "name": "Greater Noida",
+      "address": "Somewhere in Gr Noida",
+      "courses" : [
+        "Launchpad", "Crux"
+      ]
+    }
+  ]
+}
