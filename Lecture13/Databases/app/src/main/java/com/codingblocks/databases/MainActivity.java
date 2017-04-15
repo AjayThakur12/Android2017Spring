@@ -12,15 +12,17 @@ import android.widget.TextView;
 
 import com.codingblocks.databases.db.MyDatabaseHelper;
 import com.codingblocks.databases.db.tables.TodoTable;
+import com.codingblocks.databases.models.Todo;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<String> todos = new ArrayList<>();
     ListView lvTodos;
     EditText etNewTodo;
     Button btnAddTodo;
+    TodoListAdapter todoListAdapter;
+    SQLiteDatabase mydb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,27 +34,37 @@ public class MainActivity extends AppCompatActivity {
         btnAddTodo = (Button) findViewById(R.id.btnAddTodo);
 
         MyDatabaseHelper dbHelper = new MyDatabaseHelper(this);
-        final SQLiteDatabase mydb = dbHelper.getWritableDatabase();
+        mydb = dbHelper.getWritableDatabase();
 
-        todos = TodoTable.fetchTodos(mydb);
+        todoListAdapter = new TodoListAdapter(this);
+        refreshTodos();
 
-        final ArrayAdapter<String> todoListAdapter = new ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_list_item_1,
-                android.R.id.text1,
-                todos
-        );
 
         lvTodos.setAdapter(todoListAdapter);
 
         btnAddTodo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                todos.add(etNewTodo.getText().toString());
-                todoListAdapter.notifyDataSetChanged();
-                TodoTable.addTask(mydb, etNewTodo.getText().toString());
+                Todo newTodo = new Todo(
+                        etNewTodo.getText().toString(),
+                        false
+                );
+                TodoTable.addTask(mydb, newTodo);
+                refreshTodos();
+
             }
         });
 
+    }
+
+    void setTodoDone (Todo todoToSetDone) {
+        TodoTable.setDone(mydb, todoToSetDone);
+        refreshTodos();
+    }
+
+    void refreshTodos () {
+        todoListAdapter.updateTodos(
+                TodoTable.fetchTodos(mydb)
+        );
     }
 }

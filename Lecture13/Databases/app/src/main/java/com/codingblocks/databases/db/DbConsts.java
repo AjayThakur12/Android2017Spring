@@ -7,6 +7,8 @@ package com.codingblocks.databases.db;
 public interface DbConsts {
 
     String CREATE_TABLE_INE = "CREATE TABLE IF NOT EXISTS ";
+    String ALTER_TABLE = "ALTER TABLE ";
+    String ADD = " ADD ";
 
     String COMMA = " , ";
     String RBR = " ) ";
