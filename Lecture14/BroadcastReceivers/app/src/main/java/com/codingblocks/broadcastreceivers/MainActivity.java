@@ -13,7 +13,8 @@ import android.widget.RelativeLayout;
 public class MainActivity extends AppCompatActivity {
 
     RelativeLayout mainLayout;
-    BroadcastReceiver myReceiver;
+//    BroadcastReceiver myReceiver;
+    ChargerConnectReceiver myChargerReceiver;
     IntentFilter intentFilter;
 
     @Override
@@ -23,17 +24,30 @@ public class MainActivity extends AppCompatActivity {
 
         mainLayout = (RelativeLayout) findViewById(R.id.activity_main);
 
-        myReceiver = new BroadcastReceiver() {
+//        myReceiver = new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//                if (intent.getAction().equals(Intent.ACTION_POWER_CONNECTED)) {
+//                    mainLayout.setBackgroundColor(Color.GREEN);
+//                }
+//                if (intent.getAction().equals(Intent.ACTION_POWER_DISCONNECTED)) {
+//                    mainLayout.setBackgroundColor(Color.RED);
+//                }
+//            }
+//        };
+
+        myChargerReceiver = new ChargerConnectReceiver(new ChargerConnectReceiver.OnChargerChangedListener() {
             @Override
-            public void onReceive(Context context, Intent intent) {
-                if (intent.getAction().equals(Intent.ACTION_POWER_CONNECTED)) {
-                    mainLayout.setBackgroundColor(Color.GREEN);
-                }
-                if (intent.getAction().equals(Intent.ACTION_POWER_DISCONNECTED)) {
-                    mainLayout.setBackgroundColor(Color.RED);
-                }
+            public void onConnected() {
+                mainLayout.setBackgroundColor(Color.GREEN);
             }
-        };
+
+            @Override
+            public void onDisconnected() {
+                mainLayout.setBackgroundColor(Color.RED);
+            }
+        });
+
 
         intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_POWER_CONNECTED);
@@ -44,13 +58,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(myReceiver, intentFilter);
+        registerReceiver(myChargerReceiver, intentFilter);
 
     }
 
     @Override
     protected void onPause() {
-        unregisterReceiver(myReceiver);
+        unregisterReceiver(myChargerReceiver);
         super.onPause();
     }
 }
