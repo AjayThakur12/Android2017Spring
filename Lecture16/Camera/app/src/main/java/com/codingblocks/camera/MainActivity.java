@@ -9,13 +9,17 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Toast;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "CAM";
 
     SurfaceView svCamera;
+    SurfaceHolder surfaceHolder;
     Camera camera;
 
     @Override
@@ -24,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         svCamera = (SurfaceView) findViewById(R.id.surfaceViewCamera);
+
 
         int camPerm = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
 
@@ -35,21 +40,46 @@ public class MainActivity extends AppCompatActivity {
             checkCameraSizes();
         }
 
-        camera = Camera.open();
-
     }
 
     void checkCameraSizes () {
+        camera = Camera.open();
+
         Camera.Parameters camParams = camera.getParameters();
         for (Camera.Size picSize : camParams.getSupportedPictureSizes()) {
             Log.d(TAG, "picSize: " + picSize.width + " " + picSize.height);
         }
         for (Camera.Size prevSize : camParams.getSupportedPreviewSizes()) {
-            Log.d(TAG, "picSize: " + prevSize.width + " " + prevSize.height);
+            Log.d(TAG, "prevSize: " + prevSize.width + " " + prevSize.height);
         }
         for (Camera.Size vidSize : camParams.getSupportedVideoSizes()) {
-            Log.d(TAG, "picSize: " + vidSize.width + " " + vidSize.height);
+            Log.d(TAG, "vidSize: " + vidSize.width + " " + vidSize.height);
         }
+
+        surfaceHolder = svCamera.getHolder();
+        surfaceHolder.addCallback(new SurfaceHolder.Callback() {
+            @Override
+            public void surfaceCreated(SurfaceHolder holder) {
+                try {
+                    camera.setPreviewDisplay(surfaceHolder);
+                    camera.startPreview();
+                } catch (IOException e) {
+                    Log.d(TAG, "surfaceCreated: Could not start preview" );
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
+            }
+
+            @Override
+            public void surfaceDestroyed(SurfaceHolder holder) {
+
+            }
+        });
+
     }
 
     @Override
