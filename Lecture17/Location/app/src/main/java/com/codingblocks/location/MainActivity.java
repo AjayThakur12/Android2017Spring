@@ -51,12 +51,13 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onLocationChanged: lng" + location.getLongitude());
                 Log.d(TAG, "onLocationChanged: brn" + location.getBearing());
                 Log.d(TAG, "onLocationChanged: spd" + location.getSpeed());
+                Log.d(TAG, "onLocationChanged: acc" + location.getAccuracy());
             }
 
             @Override
             public void onStatusChanged(String provider, int status, Bundle extras) {
-
             }
+
 
             @Override
             public void onProviderEnabled(String provider) {
@@ -76,6 +77,10 @@ public class MainActivity extends AppCompatActivity {
         //noinspection MissingPermission
         locMan.requestLocationUpdates(LocationManager.GPS_PROVIDER,
                 5000, 10, locLis);
+
+
+        // Do this when you do not need further updates
+        //locMan.removeUpdates(locLis);
     }
 
     @Override
