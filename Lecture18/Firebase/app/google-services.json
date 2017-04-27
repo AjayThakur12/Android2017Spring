@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "333782389690",
+    "firebase_url": "https://pandora-sample-project-ed5b0.firebaseio.com",
+    "project_id": "pandora-sample-project-ed5b0",
+    "storage_bucket": "pandora-sample-project-ed5b0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333782389690:android:366a9790dfd5f612",
+        "android_client_info": {
+          "package_name": "com.codingblocks.firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "333782389690-pqhaa03uinnreg7kkc19fnp3j588gajm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB68DR65fsMslbBC8wwSz6hRjl1ZoMRwZ4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
